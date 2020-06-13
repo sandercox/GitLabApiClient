@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GitLabApiClient.Models.Job.Responses;
 using GitLabApiClient.Models.Runners.Requests;
 using GitLabApiClient.Models.Runners.Responses;
 
@@ -26,6 +27,13 @@ namespace GitLabApiClient
         /// <param name="request">Request to update runner.</param>
         /// <returns>Newly modified runner.</returns>
         Task<Runner> UpdateAsync(int runnerId, UpdateRunnerRequest request);
+
+        /// <summary>
+        /// Retrieves a list of jobs running on a runner
+        /// </summary>
+        /// <param name="runnerId">Id of the runner to get jobs for.</param>
+        /// <returns>Runner or NULL if it was not found.</returns>
+        Task<IList<Job>> GetJobsAsync(int runnerId);
 
         /// <summary>
         /// Deletes a runner.

@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using GitLabApiClient.Internal.Http;
 using GitLabApiClient.Models.Runners.Requests;
 using GitLabApiClient.Models.Runners.Responses;
-using GitLabApiClient.Models.Users.Requests;
-using GitLabApiClient.Models.Users.Responses;
+using GitLabApiClient.Models.Job.Responses;
 
 namespace GitLabApiClient
 {
@@ -47,6 +46,15 @@ namespace GitLabApiClient
         public async Task<Runner> UpdateAsync(int runnerId, UpdateRunnerRequest request) =>
             await _httpFacade.Put<Runner>($"runners/{runnerId}", request);
 
+        /// <summary>
+        /// Retrieves a list of jobs running on a runner
+        /// </summary>
+        /// <param name="runnerId">Id of the runner to get jobs for.</param>
+        /// <returns>Runner or NULL if it was not found.</returns>
+        public async Task<IList<Job>> GetJobsAsync(int runnerId)
+        {
+            return (await _httpFacade.Get<IList<Job>>($"runners/{runnerId}/jobs?sort=desc&order_by=id"));
+        }
 
         /// <summary>
         /// Deletes user.

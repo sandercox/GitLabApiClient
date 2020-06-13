@@ -23,6 +23,7 @@ namespace GitLabApiClient.Models.Job.Responses
 
         [JsonProperty("duration")]
         public double Duration { get; set; }
+        public TimeSpan DurationSpan => new TimeSpan((long)(Duration * 10000000));
 
         [JsonProperty("finished_at")]
         public DateTime? FinishedAt { get; set; }
