@@ -195,5 +195,32 @@ namespace GitLabApiClient
         /// <param name="noteId">The ID of a note.</param>
         public async Task DeleteNoteAsync(ProjectId projectId, int issueIid, int noteId) =>
             await _httpFacade.Delete($"projects/{projectId}/issues/{issueIid}/notes/{noteId}");
+
+        /// <summary>
+        /// Lists the issue links for an issue
+        /// </summary>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        public async Task<IList<IssueLink>> ListIssueLinksAsync(ProjectId projectId, int issueIid) =>
+            await _httpFacade.Get<IList<IssueLink>>($"projects/{projectId}/issues/{issueIid}/links");
+
+        /// <summary>
+        /// Creates a link between issues
+        /// </summary>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="request">Create issue link request.</param>
+        public async Task<IssueLink> CreateIssueLinkAsync(ProjectId projectId, int issueIid, CreateIssueLinkRequest request) =>
+            await _httpFacade.Post<IssueLink>($"projects/{projectId}/issues/{issueIid}/links", request);
+
+        /// <summary>
+        /// Deletes an existing link between issues.
+        /// </summary>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="issueLinkId">The ID of the link.</param>
+        /// <param name="request">Delete issue link request.</param>
+        public async Task DeleteIssueLinkAsync(ProjectId projectId, int issueIid, int issueLinkId, DeleteIssueLinkRequest request) =>
+            await _httpFacade.Delete($"projects/{projectId}/issues/{issueIid}/links/{issueLinkId}", request);
     }
 }
