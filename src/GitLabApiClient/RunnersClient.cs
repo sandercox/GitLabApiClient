@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GitLabApiClient.Internal.Http;
+using GitLabApiClient.Models.Job.Requests;
+using GitLabApiClient.Models.Job.Responses;
 using GitLabApiClient.Models.Runners.Requests;
 using GitLabApiClient.Models.Runners.Responses;
 
@@ -40,6 +42,14 @@ namespace GitLabApiClient
         {
             return (await _httpFacade.Get<RunnerDetails>($"runners/{runnerId}"));
         }
+
+        /// <summary>
+        /// Retrieves jobs for a runner by id
+        /// </summary>
+        /// <param name="runnerId">Id of the runner.</param>
+        /// <returns>List of jobs for the runner.</returns>
+        public async Task<IList<Job>> GetJobsAsync(int runnerId) =>
+            await _httpFacade.GetPagedList<Job>($"runners/{runnerId}/jobs");
 
         /// <summary>
         /// Updates existing runner
