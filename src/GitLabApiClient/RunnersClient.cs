@@ -48,7 +48,7 @@ namespace GitLabApiClient
         /// <param name="runnerId">Id of the runner.</param>
         /// <returns>List of jobs for the runner.</returns>
         public async Task<IList<Job>> GetJobsAsync(int runnerId) =>
-            await _httpFacade.Get<IList<Job>>($"runners/{runnerId}/jobs");
+            await _httpFacade.Get<IList<Job>>($"runners/{runnerId}/jobs?sort=desc&order_by=id");
 
         /// <summary>
         /// Retrieves jobs for a runner by id
